@@ -1,0 +1,1 @@
+Small library for sending mails using msmtp(1) and file(1) in Go.
