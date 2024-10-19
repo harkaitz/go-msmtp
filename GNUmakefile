@@ -2,10 +2,16 @@
 .SUFFIXES:
 .PHONY: all clean install check
 all:
-PROJECT=go-msmtp
-VERSION=1.0.0
-PREFIX=/usr/local
-BUILDDIR?=.build
+PROJECT    =go-msmtp
+VERSION    =1.0.1
+PREFIX     =/usr/local
+BUILDDIR  ?=.build
+TOOLCHAINS =x86_64-w64-mingw32
+
+release:
+	mkdir -p $(BUILDDIR)
+	hrelease -t "$(TOOLCHAINS)" -N $(PROJECT) -R $(VERSION) -o $(BUILDDIR)/Release
+	gh release create v$(VERSION) $$(cat $(BUILDDIR)/Release)
 
 ## -- BLOCK:go --
 .PHONY: all-go install-go clean-go $(BUILDDIR)/go-msmtp$(EXE)
